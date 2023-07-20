@@ -48,79 +48,84 @@ class Install implements Command {
 				Sys.println("Fetched versions");
 				var versions = Json.parse(data);
 				var version = versions[versions.length - 1];
-				Sys.println("Installing " + pkgname + " " + version);
-				var zipname = pkgname + "-" + version;
-				var zipreq = new Http(Path.join([pkgrepo.packagesURL, pkgname, version + ".zip"]));
-				zipreq.onData = function(data) {
-					Sys.println("Fetching zip");
-					FileSystem.createDirectory("/opt/escam/temp/");
-					// File.saveContent("/opt/escam/temp/" + pkgname + ".zip", data);
-					Sys.command("curl -o /opt/escam/temp/" + zipname + ".zip " + Path.join([pkgrepo.packagesURL, pkgname, version + ".zip"]));
-					Sys.command("cd /opt/escam/temp/ && unzip /opt/escam/temp/" + zipname + ".zip -d /opt/escam/temp/" + zipname);
+				if (Database.get().packages.contains({name: pkgname, version: version})) {
+					Sys.println("Skipping " + pkgname + " - already installed");
+					summary.push("SKIPPED " + pkgname);
+				} else {
+					Sys.println("Installing " + pkgname + " " + version);
+					var zipname = pkgname + "-" + version;
+					var zipreq = new Http(Path.join([pkgrepo.packagesURL, pkgname, version + ".zip"]));
+					zipreq.onData = function(data) {
+						Sys.println("Fetching zip");
+						FileSystem.createDirectory("/opt/escam/temp/");
+						// File.saveContent("/opt/escam/temp/" + pkgname + ".zip", data);
+						Sys.command("curl -o /opt/escam/temp/" + zipname + ".zip " + Path.join([pkgrepo.packagesURL, pkgname, version + ".zip"]));
+						Sys.command("cd /opt/escam/temp/ && unzip /opt/escam/temp/" + zipname + ".zip -d /opt/escam/temp/" + zipname);
 
-					var packagejson:Package = Json.parse(File.getContent(Path.join(["/opt/escam/temp/", zipname, "package.json"])));
+						var packagejson:Package = Json.parse(File.getContent(Path.join(["/opt/escam/temp/", zipname, "package.json"])));
 
-					var preparescript = packagejson.scripts.prepare;
-					var buildscript = packagejson.scripts.build;
-					var installscript = packagejson.scripts.install;
-					var postinstallscript = packagejson.scripts.postinstall;
+						var preparescript = packagejson.scripts.prepare;
+						var buildscript = packagejson.scripts.build;
+						var installscript = packagejson.scripts.install;
+						var postinstallscript = packagejson.scripts.postinstall;
 
-					for (dep in packagejson.dependencies) {
-						packages.push(dep.name);
-					}
+						for (dep in packagejson.dependencies) {
+							packages.push(dep.name);
+						}
 
-					var outfile = packagejson.outfile;
+						var outfile = packagejson.outfile;
 
-					if (preparescript != null) {
-						Sys.println("Preparing build");
-						if (Sys.command(preparescript) > 0) {
-							Sys.println("Error: failed to run prepare script");
-							summary.push("FAILED " + pkgname);
-							return;
+						if (preparescript != null) {
+							Sys.println("Preparing build");
+							if (Sys.command(preparescript) > 0) {
+								Sys.println("Error: failed to run prepare script");
+								summary.push("FAILED " + pkgname);
+								return;
+							}
 						}
+						if (buildscript != null) {
+							Sys.println("Building package");
+							if (Sys.command("cd /opt/escam/temp/" + zipname + " && " + buildscript) > 0) {
+								Sys.println("Error: failed to run build script");
+								summary.push("FAILED " + pkgname);
+								return;
+							}
+						}
+						Sys.println("Installing package");
+						if (installscript != null) {
+							if (Sys.command("cd /opt/escam/temp/" + zipname + " && " + installscript) > 0) {
+								Sys.println("Error: failed to run install script");
+								summary.push("FAILED " + pkgname);
+								return;
+							}
+						} else {
+							if (Sys.command("cd /opt/escam/temp/" + zipname + " && " + "cp " + outfile + " /usr/bin/" + pkgname) > 0) {
+								Sys.println("Error: failed to run install script");
+								summary.push("FAILED " + pkgname);
+								return;
+							}
+						}
+						if (postinstallscript != null) {
+							Sys.println("Running post-install script");
+							if (Sys.command(postinstallscript) > 0) {
+								Sys.println("Error: failed to run post-install script");
+								summary.push("FAILED " + pkgname);
+								return;
+							}
+						}
+						Sys.println("Updating database");
+						var db = Database.get();
+						db.packages.push({name: pkgname, version: version});
+						Database.save(db);
+						Sys.println("Installed " + pkgname + " " + version);
+						summary.push("INSTALLED  " + pkgname);
 					}
-					if (buildscript != null) {
-						Sys.println("Building package");
-						if (Sys.command("cd /opt/escam/temp/" + zipname + " && " + buildscript) > 0) {
-							Sys.println("Error: failed to run build script");
-							summary.push("FAILED " + pkgname);
-							return;
-						}
+					zipreq.onError = function(msg:String) {
+						Sys.println("Error fetching zip: " + msg);
+						summary.push("ERROR " + pkgname);
 					}
-					Sys.println("Installing package");
-					if (installscript != null) {
-						if (Sys.command("cd /opt/escam/temp/" + zipname + " && " + installscript) > 0) {
-							Sys.println("Error: failed to run install script");
-							summary.push("FAILED " + pkgname);
-							return;
-						}
-					} else {
-						if (Sys.command("cd /opt/escam/temp/" + zipname + " && " + "cp " + outfile + " /usr/bin/" + pkgname) > 0) {
-							Sys.println("Error: failed to run install script");
-							summary.push("FAILED " + pkgname);
-							return;
-						}
-					}
-					if (postinstallscript != null) {
-						Sys.println("Running post-install script");
-						if (Sys.command(postinstallscript) > 0) {
-							Sys.println("Error: failed to run post-install script");
-							summary.push("FAILED " + pkgname);
-							return;
-						}
-					}
-					Sys.println("Updating database");
-					var db = Database.get();
-					db.packages.push({name: pkgname, version: version});
-					Database.save(db);
-					Sys.println("Installed " + pkgname + " " + version);
-					summary.push("INSTALLED  " + pkgname);
+					zipreq.request();
 				}
-				zipreq.onError = function(msg:String) {
-					Sys.println("Error fetching zip: " + msg);
-					summary.push("ERROR " + pkgname);
-				}
-				zipreq.request();
 			}
 			versionsreq.onError = function(msg:String) {
 				Sys.println("Failed to fetch versions: " + msg);
