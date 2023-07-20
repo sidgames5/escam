@@ -18,8 +18,6 @@ class Install implements Command {
 
 		var summary = [];
 
-		Sys.println("🔋 Escam Version " + Main.version)
-		
 		for (pkgname in packages) {
 			Sys.println("Installing package: " + pkgname);
 			var pkgrepo = RepoManager.findfirst(pkgname);
@@ -73,9 +71,9 @@ class Install implements Command {
 
 						for (dep in packagejson.dependencies) {
 							if (Database.get().packages.contains({name: dep.name, version: dep.version})) {
-								Sys.println("Dependency " + dep.name + " is already installed, skipping.");
-								summary.push("SKIPPED (DEP) " + pkgname);
-							} else {	
+								Sys.println("Dependency " + dep.name + " is already installed,; skipping");
+								summary.push("SKIPPED " + pkgname);
+							} else {
 								packages.push(dep.name);
 							}
 						}
