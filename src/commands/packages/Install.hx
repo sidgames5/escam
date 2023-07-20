@@ -30,6 +30,11 @@ class Install implements Command {
 						summary.push("ERROR " + pkgname);
 					} else {
 						summary.push("EXTERNAL " + pkgname);
+						Sys.println("Updating database");
+						var db = Database.get();
+						db.packages.push({name: pkgname, version: null});
+						Database.save(db);
+						continue;
 					}
 				} else {
 					summary.push("MISSING " + pkgname);

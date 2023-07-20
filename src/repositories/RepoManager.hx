@@ -50,6 +50,8 @@ class RepoManager {
 	public static function findfirst(pkgname:String):Repository {
 		var repos = repolist();
 		for (repo in repos) {
+			remove(repo.url);
+			add(repo.url, repo);
 			if (repo.packages.contains(pkgname)) {
 				return repo;
 			}
