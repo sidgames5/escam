@@ -2,5 +2,6 @@
     "url": "https://sidgames5.github.io/escam/central",
     "packagesURL": "https://sidgames5.github.io/escam/central/packages",
     "packages": [
+        "hterm"
     ]
 }

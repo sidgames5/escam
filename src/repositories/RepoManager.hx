@@ -57,4 +57,12 @@ class RepoManager {
 		}
 		return null;
 	}
+
+	public static function getRepoPackagesURL(name:String):String {
+		for (repo in repolist()) {
+			if (repo.packages.contains(name))
+				return repo.packagesURL;
+		}
+		return null;
+	}
 }

@@ -6,5 +6,5 @@ typedef Package = {
 	scripts:{
 		prepare:String, build:String, install:String, postInstall:String
 	},
-	outpath:String,
+	outfile:String,
 }
