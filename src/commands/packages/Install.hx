@@ -70,6 +70,7 @@ class Install implements Command {
 						var postinstallscript = packagejson.scripts.postinstall;
 
 						for (dep in packagejson.dependencies) {
+							Sys.println("No matching version of dependency " + dep.name + " was found!")
 							packages.push(dep.name);
 						}
 
