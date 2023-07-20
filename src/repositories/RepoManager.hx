@@ -51,7 +51,6 @@ class RepoManager {
 		var repos = repolist();
 		for (repo in repos) {
 			if (repo.packages.contains(pkgname)) {
-				Sys.println("Package found in " + repo.url);
 				return repo;
 			}
 		}
