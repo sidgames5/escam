@@ -9,6 +9,7 @@ class RepoManager {
 			var db = Database.get();
 			db.repositories.push(repo);
 			Database.save(db);
+			Sys.println("Added repository: " + url);
 		} else {
 			Sys.println("Repository already added");
 			return;
@@ -46,7 +47,14 @@ class RepoManager {
 		return Database.get().repositories;
 	}
 
-	public static function findfirst(pkgname:String):Package {
+	public static function findfirst(pkgname:String):Repository {
+		var repos = repolist();
+		for (repo in repos) {
+			if (repo.packages.contains(pkgname)) {
+				Sys.println("Package found in " + repo.url);
+				return repo;
+			}
+		}
 		return null;
 	}
 }
