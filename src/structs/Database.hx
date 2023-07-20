@@ -4,5 +4,5 @@ import structs.Repository;
 
 typedef Database = {
 	repositories:Array<Repository>,
-	packages:Array<Package>
+	packages:Array<{name:String, version:String}>
 }

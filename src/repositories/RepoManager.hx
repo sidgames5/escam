@@ -16,7 +16,17 @@ class RepoManager {
 	}
 
 	public static function remove(url:String) {
-		if (isadded(url)) {} else {
+		if (isadded(url)) {
+			var db = Database.get();
+			for (repoi in 0...db.repositories.length) {
+				if (db.repositories[repoi].url == url) {
+					db.repositories.remove(db.repositories[repoi]);
+					Sys.println("Removed repository: " + url);
+					break;
+				}
+			}
+			Database.save(db);
+		} else {
 			Sys.println("Repository has not been added");
 			return;
 		}
@@ -24,7 +34,6 @@ class RepoManager {
 
 	public static function isadded(url:String):Bool {
 		var repos = Database.get().repositories;
-		trace(repos);
 		for (repo in repos) {
 			if (repo.url == url) {
 				return true;
