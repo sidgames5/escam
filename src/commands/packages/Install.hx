@@ -1,5 +1,6 @@
 package commands.packages;
 
+import sys.io.File;
 import haxe.Json;
 import haxe.io.Path;
 import haxe.Http;
@@ -24,6 +25,15 @@ class Install implements Command {
 				var versions = Json.parse(data);
 				var version = versions[0];
 				Sys.println("Installing " + pkgname + " " + version);
+				var zipreq = new Http(Path.join([pkgrepo.packagesURL, pkgname, version + ".zip"]));
+				zipreq.onData = function(data:String) {
+					Sys.println("Fetched zip");
+					trace(data);
+				}
+				zipreq.onError = function(msg:String) {
+					Sys.println("Error fetching zip: " + msg);
+				}
+				zipreq.request();
 			}
 			versionsreq.onError = function(msg:String) {
 				Sys.println("Failed to fetch versions: " + msg);
