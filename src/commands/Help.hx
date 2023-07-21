@@ -9,7 +9,7 @@ class Help implements Command {
 		Sys.println("update [alias u]             | updates a package");
 		Sys.println("add-repository [alias ar]    | adds a repository");
 		Sys.println("remove-repository [alias rr] | removes a repository");
-		Sys.println("sync-repository [alias sr]   | fetches the latest version of a repository");
+		Sys.println("sync [alias s]               | fetches the latest version of a repository");
 	}
 
 	public function new() {}
