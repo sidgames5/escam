@@ -71,7 +71,7 @@ class Install implements Command {
 
 						for (dep in packagejson.dependencies) {
 							if (Database.get().packages.contains({name: dep.name, version: dep.version})) {
-								Sys.println("Dependency " + dep.name + " is already installed,; skipping");
+								Sys.println("Dependency " + dep.name + " is already installed; skipping");
 								summary.push("SKIPPED " + pkgname);
 							} else {
 								packages.push(dep.name);

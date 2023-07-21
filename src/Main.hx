@@ -25,6 +25,8 @@ class Main {
 				Commands.execute(new AddRepository());
 			case "remove-repository", "rr":
 				Commands.execute(new RemoveRepository());
+			case "sync", "s":
+				Commands.execute(new Sync());
 			default:
 				Sys.println("Unknown operation: " + args[0]);
 				Sys.println("Run 'escam help' for information");
