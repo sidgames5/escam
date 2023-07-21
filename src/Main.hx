@@ -25,7 +25,7 @@ class Main {
 				Commands.execute(new AddRepository());
 			case "remove-repository", "rr":
 				Commands.execute(new RemoveRepository());
-			case "sync", "s":
+			case "sync-repository", "sr":
 				Commands.execute(new Sync());
 			default:
 				Sys.println("Unknown operation: " + args[0]);

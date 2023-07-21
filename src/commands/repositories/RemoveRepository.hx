@@ -6,7 +6,7 @@ class RemoveRepository implements Command {
 	public function bind(args:Array<String>) {
 		var reponame = args[1];
 
-		Sys.println("Removing " + reponame);
+		Sys.println("Removing repository " + reponame);
 		RepoManager.remove(reponame);
 	}
 
