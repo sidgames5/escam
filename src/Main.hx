@@ -11,7 +11,7 @@ class Main {
 
 	public static function main() {
 		if (Sys.systemName() == "Mac") {
-			Sys.println("WARNING: MacOS support is EXTREMELY unstable. The developers of escam ARE NOT RESPONSIBLE FOR ANY DAMAGE DONE TO YOUR SYSTEM. Use at your own risk.");
+			Sys.println("Notice: MacOS support is currently very unstable. Some parts of escam may not work correctly.");
 			Sys.sleep(2);
 		}
 		switch (args[0]) {
