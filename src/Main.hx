@@ -10,6 +10,10 @@ class Main {
 	public static final version = "0.4.0";
 
 	public static function main() {
+		if (Sys.systemName() == "Mac") {
+			Sys.println("WARNING: MacOS support is EXTREMELY unstable. The developers of escam ARE NOT RESPONSIBLE FOR ANY DAMAGE DONE TO YOUR SYSTEM. Use at your own risk.");
+			Sys.sleep(2);
+		}
 		switch (args[0]) {
 			case "version", "v":
 				Commands.execute(new Version());
