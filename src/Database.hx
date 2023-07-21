@@ -13,7 +13,10 @@ class Database {
 	public static function init() {
 		Sys.println("Initializing database");
 		var db:structs.Database = {
-			repositories: [{url: "http://173.71.190.191:3434", packages: [], packagesURL: ""}],
+			repositories: [
+				{url: "http://173.71.190.191:3434/core", packages: [], packagesURL: ""},
+				{url: "http://173.71.190.191:3434/community", packages: [], packagesURL: ""}
+			],
 			packages: []
 		};
 		FileSystem.createDirectory("/opt/escam/");
