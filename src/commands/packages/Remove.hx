@@ -12,11 +12,7 @@ class Remove implements Command {
 
 			for (pkg in Database.get().packages) {
 				if (pkg.name == pkgname) {
-					if (Sys.command("rm /usr/bin/" + pkg.name) >= 0) {
-						Sys.println("Failed to remove package: " + pkgname);
-						summary.push("ERROR " + pkgname);
-						break;
-					}
+					Sys.command("rm /usr/bin/" + pkg.name);
 					Sys.println("Removed " + pkgname);
 					Sys.println("Updating database");
 					var db = Database.get();
@@ -27,9 +23,11 @@ class Remove implements Command {
 				}
 			}
 
-			Sys.println("Failed to remove package: " + pkgname);
-			Sys.println("The package is not installed");
-			summary.push("MISSING " + pkgname);
+			if (!summary.contains("REMOVED " + pkgname)) {
+				Sys.println("Failed to remove package: " + pkgname);
+				Sys.println("The package is not installed");
+				summary.push("MISSING " + pkgname);
+			}
 		}
 
 		Sys.println("\nTransaction summary:");
