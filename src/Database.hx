@@ -13,7 +13,9 @@ class Database {
 	public static function init() {
 		Sys.println("Initializing database");
 		var db:structs.Database = {
-			repositories: [],
+			repositories: [
+				{url: "https://sidgames5.github.io/escam/central", packages: [], packagesURL: ""}
+			],
 			packages: []
 		};
 		FileSystem.createDirectory("/opt/escam/");
