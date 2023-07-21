@@ -17,7 +17,7 @@ class Database {
 				{url: "http://173.71.190.191:3434/core", packages: [], packagesURL: ""},
 				{url: "http://173.71.190.191:3434/community", packages: [], packagesURL: ""}
 			],
-			packages: []
+			packages: [{name: "escam", version: Main.version}]
 		};
 		FileSystem.createDirectory("/opt/escam/");
 		File.saveContent(path, Json.stringify(db));
