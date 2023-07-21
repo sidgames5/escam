@@ -7,7 +7,7 @@ import commands.*;
 class Main {
 	static var args = Sys.args();
 
-	public static final version = "0.3.1";
+	public static final version = "0.3.2";
 
 	public static function main() {
 		switch (args[0]) {
