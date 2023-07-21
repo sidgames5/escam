@@ -84,7 +84,7 @@ class Install implements Command {
 
 						if (preparescript != null) {
 							Sys.println("Preparing build");
-							if (Sys.command(preparescript) > 0) {
+							if (Sys.command("cd /opt/escam/temp/" + zipname + " && chmod +x " + preparescript + " && " + preparescript) > 0) {
 								Sys.println("Error: failed to run prepare script");
 								summary.push("FAILED " + pkgname);
 								return;
@@ -92,7 +92,7 @@ class Install implements Command {
 						}
 						if (buildscript != null) {
 							Sys.println("Building package");
-							if (Sys.command("cd /opt/escam/temp/" + zipname + " && " + buildscript) > 0) {
+							if (Sys.command("cd /opt/escam/temp/" + zipname + " && chmod +x " + buildscript + " && " + buildscript) > 0) {
 								Sys.println("Error: failed to run build script");
 								summary.push("FAILED " + pkgname);
 								return;
@@ -100,7 +100,7 @@ class Install implements Command {
 						}
 						Sys.println("Installing package");
 						if (installscript != null) {
-							if (Sys.command("cd /opt/escam/temp/" + zipname + " && " + installscript) > 0) {
+							if (Sys.command("cd /opt/escam/temp/" + zipname + " && chmod +x " + installscript + " && " + installscript) > 0) {
 								Sys.println("Error: failed to run install script");
 								summary.push("FAILED " + pkgname);
 								return;
@@ -114,7 +114,7 @@ class Install implements Command {
 						}
 						if (postinstallscript != null) {
 							Sys.println("Running post-install script");
-							if (Sys.command(postinstallscript) > 0) {
+							if (Sys.command("cd /opt/escam/temp/" + zipname + " && chmod +x " + postinstallscript + " && " + postinstallscript) > 0) {
 								Sys.println("Error: failed to run post-install script");
 								summary.push("FAILED " + pkgname);
 								return;
