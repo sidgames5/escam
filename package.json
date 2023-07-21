@@ -1,0 +1,15 @@
+{
+    "name": "escam",
+    "version": "0.3.0",
+    "scripts":{
+        "prepare": "./prepare.sh",
+        "build": "haxe build.hxml"
+    },
+    "outfile": "./bin/Main",
+    "dependencies": [
+        {
+            "name": "haxe",
+            "version": ">=4"
+        }
+    ]
+}
