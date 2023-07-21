@@ -117,7 +117,7 @@ class Install implements Command {
 								return;
 							}
 						} else {
-							if (Sys.command("cd /opt/escam/temp/" + zipname + " && " + "cp " + outfile + " /usr/bin/" + pkgname) > 0) {
+							if (Sys.command("cd /opt/escam/temp/" + zipname + " && " + "cp " + outfile + " /usr/local/bin/" + pkgname) > 0) {
 								Sys.println("Error: failed to run install script");
 								summary.push("FAILED " + pkgname);
 								return;

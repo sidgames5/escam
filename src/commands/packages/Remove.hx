@@ -30,7 +30,7 @@ class Remove implements Command {
 						}
 						Sys.command("cd /opt/escam/temp/" + zipname + " && " + uninstallscript);
 					} else {
-						Sys.command("rm /usr/bin/" + pkg.name);
+						Sys.command("rm /usr/local/bin/" + pkg.name);
 					}
 
 					Sys.println("Removed " + pkgname);
