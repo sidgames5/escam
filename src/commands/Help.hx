@@ -7,7 +7,7 @@ class Help implements Command {
 		Sys.println("install [i]            | installs a package");
 		Sys.println("remove [r]             | removes a package");
 		Sys.println("update [u]             | updates a package");
-		Sys.println("add-repository [r]    | adds a repository");
+		Sys.println("add-repository [ar]    | adds a repository");
 		Sys.println("remove-repository [rr] | removes a repository");
 		Sys.println("sync [s]               | fetches the latest version of a repository");
 	}
