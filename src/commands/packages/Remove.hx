@@ -15,7 +15,7 @@ class Remove implements Command {
 					if (Sys.command("rm /usr/bin/" + pkg.name) >= 0) {
 						Sys.println("Failed to remove package: " + pkgname);
 						summary.push("ERROR " + pkgname);
-						return;
+						break;
 					}
 					Sys.println("Removed " + pkgname);
 					Sys.println("Updating database");
@@ -23,7 +23,7 @@ class Remove implements Command {
 					db.packages.remove({name: pkg.name, version: pkg.version});
 					Database.save(db);
 					summary.push("REMOVED " + pkgname);
-					return;
+					break;
 				}
 			}
 
