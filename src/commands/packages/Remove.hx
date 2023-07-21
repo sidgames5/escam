@@ -5,6 +5,8 @@ import sys.io.File;
 import haxe.Json;
 import structs.Package;
 
+using StringTools;
+
 class Remove implements Command {
 	public function bind(args:Array<String>) {
 		var packages = args;
@@ -23,7 +25,10 @@ class Remove implements Command {
 					var uninstallscript = packagejson.scripts.uninstall;
 
 					if (uninstallscript != null) {
-						Sys.command(uninstallscript);
+						if (uninstallscript.startsWith("./")) {
+							Sys.command("cd /opt/escam/temp/" + zipname + " && " + "chmod +x " + uninstallscript);
+						}
+						Sys.command("cd /opt/escam/temp/" + zipname + " && " + uninstallscript);
 					} else {
 						Sys.command("rm /usr/bin/" + pkg.name);
 					}

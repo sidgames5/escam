@@ -25,6 +25,8 @@ class Update implements Command {
 			}
 
 			for (pkg in packages) {
+				Sys.println("Checking " + pkg.name + " for updates");
+
 				var currentver = pkg.version;
 				var latestver = currentver;
 
