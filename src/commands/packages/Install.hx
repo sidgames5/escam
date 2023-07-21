@@ -69,6 +69,8 @@ class Install implements Command {
 						var installscript = packagejson.scripts.install;
 						var postinstallscript = packagejson.scripts.postinstall;
 
+						Sys.setCwd(Path.join(["/opt/escam/temp/", zipname]));
+
 						for (dep in packagejson.dependencies) {
 							if (Database.get().packages.contains({name: dep.name, version: dep.version})) {
 								Sys.println("Skipping dependency " + dep.name + " - already installed");
