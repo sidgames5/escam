@@ -36,7 +36,14 @@ class Remove implements Command {
 					Sys.println("Removed " + pkgname);
 					Sys.println("Updating database");
 					var db = Database.get();
+					var pkgs = [];
 					db.packages.remove({name: pkg.name, version: pkg.version});
+					for (pac in db.packages) {
+						if (pac.name != pkg.name) {
+							pkgs.push(pac);
+						}
+					}
+					db.packages = pkgs;
 					Database.save(db);
 					summary.push("REMOVED " + pkgname);
 					break;
