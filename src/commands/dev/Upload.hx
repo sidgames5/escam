@@ -50,7 +50,7 @@ class Upload implements Command {
 		Sys.println("Collecting artifacts");
 		var zipcontent = File.getBytes(Path.join([Sys.getCwd(), pkg.version + ".zip"]));
 
-		Sys.println("Uploading artifacts to" + rawrepourl);
+		Sys.println("Uploading artifacts to " + rawrepourl);
 		var req = new Http(httpurl);
 		req.setPostBytes(zipcontent);
 		req.onData = function(data:String) {
