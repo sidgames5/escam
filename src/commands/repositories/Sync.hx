@@ -43,7 +43,7 @@ class Sync implements Command {
 			Sys.print("\r");
 			for (i in 0...20) {
 				Sys.print("█");
-				Sys.sleep(0.01);
+				Sys.sleep(Math.random() / 10);
 			}
 			Sys.print("\r\n");
 		}

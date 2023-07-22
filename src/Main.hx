@@ -2,6 +2,7 @@ package;
 
 import commands.packages.*;
 import commands.repositories.*;
+import commands.dev.*;
 import commands.*;
 
 class Main {
@@ -31,6 +32,8 @@ class Main {
 				Commands.execute(new RemoveRepository());
 			case "sync", "s":
 				Commands.execute(new Sync());
+			case "upload", "submit":
+				Commands.execute(new Upload());
 			default:
 				Sys.println("Unknown operation: " + args[0]);
 				Sys.println("Run 'escam help' for information");
