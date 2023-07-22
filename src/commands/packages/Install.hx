@@ -1,5 +1,7 @@
 package commands.packages;
 
+import pkgman.PackageManager;
+import pkgman.PkgmanScanner;
 import structs.Package;
 import sys.io.Process;
 import sys.thread.Thread;
@@ -25,10 +27,11 @@ class Install implements Command {
 			var pkgrepo = RepoManager.findfirst(pkgname);
 			if (pkgrepo == null) {
 				Sys.println("Could not find package: " + pkgname);
-				Sys.print("Would you like to install this package from pacman? [y/N] ");
+				Sys.print("Would you like to install this package from your local package manager? [y/N] ");
 				var a = Sys.stdin().readLine();
 				if (a.toLowerCase() == "y") {
-					if (Sys.command("pacman -S " + pkgname) > 0) {
+					var pkgman = PkgmanScanner.getLocalPackageManager();
+					if (Sys.command(PackageManager.getCommand(pkgman, [pkgname])) > 0) {
 						summary.push("ERROR " + pkgname);
 					} else {
 						summary.push("EXTERNAL " + pkgname);
