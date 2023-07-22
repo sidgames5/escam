@@ -4,7 +4,7 @@ import haxe.io.Path;
 import sys.FileSystem;
 
 class PkgmanScanner {
-	public static function getLocalPackageManager():String {
+	public static function getLocalPackageManager():Array<String> {
 		var packagemans:Array<String> = [];
 		for (folder in ScanFolders.get()) {
 			for (pkgman in PackageManager.get()) {
