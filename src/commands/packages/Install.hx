@@ -24,6 +24,15 @@ class Install implements Command {
 
 		for (pkgname in packages) {
 			Sys.println("Installing package: " + pkgname);
+			for (pkg in Database.get().packages) {
+				if (pkg.name == pkgname) {
+					Sys.println("Package already installed: " + pkgname);
+					summary.push("SKIPPED " + pkgname);
+					continue;
+				}
+			}
+			if (summary.contains("SKIPPED " + pkgname))
+				continue;
 			var pkgrepo = RepoManager.findfirst(pkgname);
 			if (pkgrepo == null) {
 				Sys.println("Could not find package: " + pkgname);

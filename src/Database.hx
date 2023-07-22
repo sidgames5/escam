@@ -14,8 +14,18 @@ class Database {
 		Sys.println("Initializing database");
 		var db:structs.Database = {
 			repositories: [
-				{url: "http://173.71.190.191:3434/core", packages: [], packagesURL: ""},
-				{url: "http://173.71.190.191:3434/community", packages: [], packagesURL: ""}
+				{
+					name: "core",
+					url: "http://173.71.190.191:3434/core",
+					packages: [],
+					packagesURL: ""
+				},
+				{
+					name: "community",
+					url: "http://173.71.190.191:3434/community",
+					packages: [],
+					packagesURL: ""
+				}
 			],
 			packages: [{name: "escam", version: Main.version}]
 		};
