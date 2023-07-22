@@ -11,7 +11,7 @@ class PkgmanScanner {
 				Sys.println("Checking " + Path.join([folder, pkgman]));
 				if (FileSystem.exists(Path.join([folder, pkgman]))) {
 					if (!packagemans.contains(pkgman)) {
-						packagemans.push(pkgman)
+						packagemans.push(pkgman);
 					}
 				}
 			}
