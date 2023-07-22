@@ -7,7 +7,7 @@ import commands.*;
 class Main {
 	static var args = Sys.args();
 
-	public static final version = "0.4.0";
+	public static final version = "0.4.1";
 
 	public static function main() {
 		if (Sys.systemName() == "Mac") {
