@@ -39,7 +39,7 @@ class Install implements Command {
 				Sys.print("Would you like to install this package from your local package manager? [y/N] ");
 				var a = Sys.stdin().readLine();
 				if (a.toLowerCase() == "y") {
-					var pkgman = PkgmanScanner.getLocalPackageManager();
+					var pkgman = PkgmanScanner.getLocalPackageManager()[0];
 					if (Sys.command(PackageManager.getCommand(pkgman, [pkgname])) > 0) {
 						summary.push("ERROR " + pkgname);
 					} else {
