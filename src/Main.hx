@@ -3,6 +3,7 @@ package;
 import commands.packages.*;
 import commands.repositories.*;
 import commands.dev.*;
+import commands.hosting.*;
 import commands.*;
 
 class Main {
@@ -12,8 +13,8 @@ class Main {
 
 	public static function main() {
 		if (Sys.systemName() == "Mac") {
-			Sys.println("Notice: MacOS support is currently very unstable. Some parts of escam may not work correctly.");
-			Sys.sleep(2);
+			Sys.println("WARNING: MacOS support is EXTREMELY unstable. The package manager is optimized for MacOS however some packages may not work properly and COULD BREAK YOUR SYSTEM.\n\033[1;31mESCAM COMES WITH ABSOLUTELTY NO WARRANTY!!!\033[0m\n");
+			Sys.sleep(5);
 		}
 		switch (args[0]) {
 			case "version", "v":
@@ -34,6 +35,10 @@ class Main {
 				Commands.execute(new Sync());
 			case "upload", "submit":
 				Commands.execute(new Upload());
+			case "init-repository":
+				Commands.execute(new InitRepository());
+			case "host-repository":
+				Commands.execute(new HostRepository());
 			default:
 				Sys.println("Unknown operation: " + args[0]);
 				Sys.println("Run 'escam help' for information");

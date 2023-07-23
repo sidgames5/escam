@@ -10,6 +10,8 @@ class Help implements Command {
 		Sys.println("add-repository [ar]    | adds a repository");
 		Sys.println("remove-repository [rr] | removes a repository");
 		Sys.println("sync [s]               | fetches the latest version of a repository");
+		Sys.println("init-repository        | creates the required file structure to host a repository");
+		Sys.println("host-repository        | runs an http server in the current working directory");
 	}
 
 	public function new() {}
