@@ -6,9 +6,9 @@ name: Haxe
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -32,16 +32,18 @@ jobs:
           sudo add-apt-repository ppa:haxe/releases -y
           sudo apt-get update
           sudo apt-get install haxe=${{matrix.haxe-version}} -y
-      
+
       - name: Setup haxelib
         run: haxelib setup ~/haxe/lib
 
       - name: Install libraries
-        run: haxelib install hxcpp
-      
+        run: |
+          haxelib install hxcpp
+          haxelib install hx_webserver
+
       - name: Build app
         run: haxe build.hxml
-      
+
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
