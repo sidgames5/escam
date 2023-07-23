@@ -1,3 +1,4 @@
 --class-path src
+--library hx_webserver
 --main Main
 --cpp bin

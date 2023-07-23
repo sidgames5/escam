@@ -52,7 +52,8 @@ class Upload implements Command {
 
 		Sys.println("Uploading artifacts to " + rawrepourl);
 		var req = new Http(httpurl);
-		req.setPostBytes(zipcontent);
+		req.addHeader("Content-Type", "text/plain");
+		req.setPostData(zipcontent.toHex());
 		req.onData = function(data:String) {
 			Sys.println("Uploaded package: " + pkg.name + " " + pkg.version);
 		}
