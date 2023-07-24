@@ -7,4 +7,4 @@ haxelib install hxcpp
 haxelib install hx_webserver
 haxe build.hxml
 cd bin/
-sudo cp ./Main /usr/bin/escam
+sudo cp ./Main /usr/local/bin/escam
