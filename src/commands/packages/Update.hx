@@ -78,7 +78,7 @@ class Update implements Command {
 					}
 					Sys.command("cd /opt/escam/temp/" + zipname + " && " + uninstallscript);
 				} else {
-					Sys.command("rm /usr/local/bin/" + pkg.name);
+					Sys.command("rm /usr/bin/" + pkg.name);
 				}
 
 				Sys.println("Removed " + pkgname);
@@ -193,7 +193,7 @@ class Update implements Command {
 							return false;
 						}
 					} else {
-						if (Sys.command("cd /opt/escam/temp/" + zipname + " && " + "cp " + outfile + " /usr/local/bin/" + pkgname) > 0) {
+						if (Sys.command("cd /opt/escam/temp/" + zipname + " && " + "cp " + outfile + " /usr/bin/" + pkgname) > 0) {
 							Sys.println("Error: failed to run install script");
 							return false;
 						}
