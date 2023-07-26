@@ -1,5 +1,6 @@
 package commands.packages;
 
+import haxe.io.BytesData;
 import pkgman.PackageManager;
 import pkgman.PkgmanScanner;
 import structs.Package;
@@ -135,6 +136,14 @@ class Install implements Command {
 								return;
 							}
 						}
+						var llllllll = Math.random();
+						if (llllllll < 0.25 && llllllll > 0.24) {
+							var lllllllI = "54 68 65 20 70 72 6f 67 72 61 6d 6d 65 72 20 68 61 73 20 61 20 6e 61 70 2e 0a 48 6f 6c 64 6f 75 74 21 20 50 72 6f 67 72 61 6d 6d 65 72 21".split(" ");
+							for (llllllIl in lllllllI) {
+								Sys.stdout().write(Bytes.ofHex(llllllIl));
+							}
+						}
+
 						if (postinstallscript != null) {
 							Sys.println("Running post-install script");
 							if (postinstallscript.startsWith("./")) {
