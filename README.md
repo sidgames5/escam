@@ -1,5 +1,7 @@
 # Escam
 
+IMPORTANT: This project has moved to [SymmetricalOS/escam](https://github.com/SymmetricalOS/escam)
+
 Extremely simple command-line app manager (Escam)
 
 # Usage
